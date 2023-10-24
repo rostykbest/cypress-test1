@@ -1,25 +1,27 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("login", function (email, password, rememberMe) {
+  cy.visit("auth/login");
+
+  cy.get("form input#input-email").type(email, { delay: 50 });
+  cy.get("form input#input-password").type(password, { delay: 50 });
+
+  if (rememberMe) {
+    cy.get("form .custom-checkbox").click();
+  }
+
+  cy.get('form button[status="primary"]').click();
+  cy.url().should("contain", "/pages");
+});
+
+//Cypress.Commands.add("addUser", function () {
+//  cy.visit("pages/tables/smart-table");
+//  cy.get("a.ng2-smart-action-add-add").click();
+//  cy.get('input[placeholder="ID"]').type("999");
+//});
+
+Cypress.Commands.add("addUser", function () {
+  // Make sure the URL is correct for your application
+  cy.visit("/pages/tables/smart-table");
+
+  // Wait for the page to load and the button to become visible
+  //cy.get("a.ng2-smart-action-add-add").should("be.visible").click();
+});
