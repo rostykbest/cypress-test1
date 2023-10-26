@@ -18,7 +18,7 @@ Cypress.Commands.add("login", function (email, password, rememberMe) {
 //  cy.get('input[placeholder="ID"]').type("999");
 //});
 
-Cypress.Commands.add("addUser", function () {
+Cypress.Commands.add("addUser", () => {
   // Make sure the URL is correct for your application
   cy.visit("/pages/tables/smart-table");
 
